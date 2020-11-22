@@ -12,9 +12,17 @@ abstract class EasyNotesDatabase: RoomDatabase() {
 
     companion object{
 
-    }
+        @Volatile
+        private var instance: EasyNotesDatabase? = null
+        private val LOCK = Any()
 
-    private fun createNotesDatabase(context: Context) = Room.databaseBuilder(context.applicationContext,
-        EasyNotesDatabase::class.java, "EasyNotesDb.db" ).build()
+        operator fun invoke(context: Context) = instance?: synchronized(LOCK){
+            instance?: createNotesDatabase(context).also { instance = it }
+        }
+
+        private fun createNotesDatabase(context: Context) = Room.databaseBuilder(context.applicationContext,
+            EasyNotesDatabase::class.java, "EasyNotesDb.db" ).build()
+
+    }
 
 }

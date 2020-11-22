@@ -16,6 +16,6 @@ interface NotesDao {
    suspend fun deleteNotes(note: NotesEntity)
 
     @Query("SELECT * FROM NotesDatabase")
-    suspend fun getAllNOtes(note: NotesEntity): LiveData<List<NotesEntity>>
+    suspend fun getAllNotes(note: NotesEntity): LiveData<List<NotesEntity>>
 
 }
