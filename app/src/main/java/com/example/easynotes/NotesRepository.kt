@@ -1,15 +1,17 @@
 package com.example.easynotes
 
-import androidx.annotation.WorkerThread
+class NotesRepository(private val db: EasyNotesDatabase) {
 
-class NotesRepository(private val notesDao: NotesDao) {
+    suspend fun insertNewNotes(note:NotesEntity) = db.getNotesDao().insertNewNotes(note)
 
-    @WorkerThread
-    suspend fun insertNewNotes(note:NotesEntity){
-        notesDao.insertNewNotes(note)
+    suspend fun updateNotes(note: NotesEntity) = db.getNotesDao().updateNotes(note)
+
+    suspend fun deleteNotes(note: NotesEntity) = db.getNotesDao().deleteNotes(note)
+
+    suspend fun getAllNotes(note: NotesEntity) = db.getNotesDao().getAllNotes(note)
 }
 
-    @WorkerThread
+  /*  @WorkerThread
     suspend fun updateNotes(note: NotesEntity){
         notesDao.updateNotes(note)
     }
@@ -24,4 +26,4 @@ class NotesRepository(private val notesDao: NotesDao) {
         notesDao.getAllNotes(note)
 
     }
-}
+}*/
